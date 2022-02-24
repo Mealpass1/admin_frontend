@@ -10,8 +10,8 @@ const Logo = () => {
 };
 
 const Container = styled.div`
-  width: 10em;
-  height: 10em;
+  width: 9em;
+  height: 9em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,7 +21,7 @@ const Container = styled.div`
   background: var(--bright);
 
   img {
-    width: 80%;
+    width: 90%;
   }
 `;
 
