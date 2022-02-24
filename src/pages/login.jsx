@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router";
+import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { BiUserCheck } from "react-icons/bi";
 import { FiLock } from "react-icons/fi";
@@ -12,7 +13,7 @@ import axios from "../features/axios";
 import Logo from "../components/logo";
 
 const Login = () => {
-  const router = useLocation();
+  const router = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -25,10 +26,25 @@ const Login = () => {
   const onSubmit = (data) => {
     setLoading(true);
 
-    axios.post("/admin/login", {
-      email: data.email,
-      password: data.password,
-    });
+    axios
+      .post("/admin/login", {
+        email: data.email,
+        password: data.password,
+      })
+      .then((response) => {
+        setLoading(false);
+
+        if (response.data.status == "error") {
+          toast.error("invalid email or password", {
+            toastId: "custome-id",
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
+        } else {
+          sessionStorage.setItem("token", response.data.data);
+          router("/diners");
+        }
+      });
   };
 
   const goDiner = () => {
@@ -250,6 +266,10 @@ const Container = styled.div`
           padding: 0 15px;
           border-radius: 8px;
           margin: 5px 0;
+
+          input {
+            font-size: 1em;
+          }
         }
 
         label {
