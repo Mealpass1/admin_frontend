@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 //pages
 import Login from "./pages/login";
 import ForgotPassword from "./pages/forgotpassword";
+import Diners from "./pages/diners";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Login />} />
         <Route path="/forgotpassword" exact element={<ForgotPassword />} />
+        <Route path="/diners" exact element={<Diners />} />
       </Routes>
     </Router>
   );
