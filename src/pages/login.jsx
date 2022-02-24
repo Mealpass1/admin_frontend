@@ -24,6 +24,11 @@ const Login = () => {
 
   const onSubmit = (data) => {
     setLoading(true);
+
+    axios.post("/admin/login", {
+      email: data.email,
+      password: data.password,
+    });
   };
 
   const goDiner = () => {
