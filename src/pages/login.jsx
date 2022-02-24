@@ -116,8 +116,8 @@ const Login = () => {
 
 const Container = styled.div`
   width: 100vw;
-  padding: 10px 0 0 0;
   height: auto;
+  padding: 10px 0 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -130,8 +130,8 @@ const Container = styled.div`
 
   .error {
     width: 80vw;
-    z-index: 1000;
     height: 40px;
+    z-index: 1000;
     background: var(--red);
     position: fixed;
     display: flex;
@@ -150,16 +150,81 @@ const Container = styled.div`
     align-items: center;
     justify-content: flex-start;
 
+    .login {
+      width: 100%;
+      height: 70px;
+      font-weight: 400;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+
+      a {
+        width: 100%;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        font-weight: 700;
+        background: var(--grayish);
+      }
+    }
+
     form {
+      .or {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        button {
+          background: var(--opacity);
+        }
+
+        .up {
+          width: 100%;
+          height: 40px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-around;
+
+          .one {
+            width: 40%;
+            height: 3px;
+            background: var(--opacity);
+          }
+        }
+      }
+
+      a {
+        height: 15px;
+        width: 100%;
+        padding: 0 5px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        color: var(--black);
+      }
       button {
         width: 100%;
         height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 1em;
         font-weight: 700;
         border: none;
         border-radius: 5px;
         background: var(--gray);
         margin: 10px 0 5px 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
 
       .inputs {
@@ -203,7 +268,7 @@ const Container = styled.div`
       height: 60px;
 
       .title {
-        font-size: 1.4em;
+        font-size: 1em;
         font-weight: 700;
       }
 
@@ -212,28 +277,6 @@ const Container = styled.div`
       }
     }
 
-    .form .form .login {
-      width: 100%;
-      height: 70px;
-      font-weight: 400;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-around;
-    }
-    .form .login p {
-      line-height: 10px;
-    }
-    .form .login a {
-      width: 100%;
-      height: 45px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 5px;
-      font-weight: 700;
-      background: var(--grayish);
-    }
     .index {
       margin: 10px 0 10px -70%;
       width: 60px;
@@ -241,43 +284,12 @@ const Container = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.4em;
+      font-size: 1em;
       border: none;
       border-radius: 5px;
     }
-    .form form a {
-      height: 15px;
-      width: 100%;
-      padding: 0 5px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
     .perror {
       color: var(--red);
-    }
-    .form form .or {
-      width: 100%;
-      height: auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .form form .or .up {
-      width: 100%;
-      height: 40px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-around;
-    }
-    .form form .or .up .one {
-      width: 40%;
-      height: 3px;
-      background: var(--opacity);
-    }
-    .form form .or button {
-      background: var(--opacity);
     }
   }
 `;
