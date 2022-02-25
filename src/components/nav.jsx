@@ -77,7 +77,7 @@ const Container = styled.div`
     justify-content: space-around;
 
     .name {
-      width: 38%;
+      width: 30%;
       height: 100%;
       padding: 0 10px;
       display: flex;
@@ -92,7 +92,7 @@ const Container = styled.div`
     }
 
     .restaurant {
-      width: 60%;
+      width: 70%;
       height: 100%;
       display: flex;
       flex-direction: row;
