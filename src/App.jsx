@@ -9,6 +9,7 @@ import Login from "./pages/login";
 import ForgotPassword from "./pages/forgotpassword";
 import Diners from "./pages/diners";
 import Restaurants from "./pages/restaurants";
+import Transactions from "./pages/transactions";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/forgotpassword" exact element={<ForgotPassword />} />
         <Route path="/diners" exact element={<Diners />} />
         <Route path="/restaurants" exact element={<Restaurants />} />
+        <Route path="/transactions" exact element={<Transactions />} />
       </Routes>
     </Router>
   );

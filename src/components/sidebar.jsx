@@ -34,7 +34,9 @@ const SideBar = ({ openBar }) => {
   const handleRestaurants = () => {
     navigate("/restaurants");
   };
-  const handleTransactions = () => {};
+  const handleTransactions = () => {
+    navigate("/transactions");
+  };
   const handleExplore = () => {};
   const handleLogout = () => {};
 
