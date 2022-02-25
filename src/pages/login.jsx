@@ -193,6 +193,8 @@ const Container = styled.div`
     }
 
     form {
+      width: 100%;
+
       .or {
         width: 100%;
         height: auto;
