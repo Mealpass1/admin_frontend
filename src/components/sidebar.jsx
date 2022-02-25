@@ -2,7 +2,7 @@ import * as React from "react";
 import reactDom from "react-dom";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 import { FaImage } from "react-icons/fa";
 import { FiCodesandbox } from "react-icons/fi";
@@ -11,6 +11,7 @@ import { IoFastFoodSharp } from "react-icons/io5";
 
 const SideBar = ({ openBar }) => {
   const router = useLocation();
+  const navigate = useNavigate();
 
   const variants = {
     initial: {
@@ -27,9 +28,13 @@ const SideBar = ({ openBar }) => {
     },
   };
 
-  const handleOrder = () => {};
-  const handleProduct = () => {};
-  const handleProfile = () => {};
+  const handleDiners = () => {
+    navigate("/diners");
+  };
+  const handleRestaurants = () => {
+    navigate("/restaurants");
+  };
+  const handleTransactions = () => {};
   const handleExplore = () => {};
   const handleLogout = () => {};
 
@@ -50,7 +55,7 @@ const SideBar = ({ openBar }) => {
           <div className="nav">
             <div
               className={router.pathname.includes("diners") ? "active" : "item"}
-              onClick={handleOrder}
+              onClick={handleDiners}
             >
               <FaImage />
               <p>Diners</p>
@@ -59,7 +64,7 @@ const SideBar = ({ openBar }) => {
               className={
                 router.pathname.includes("restaurants") ? "active" : "item"
               }
-              onClick={handleProduct}
+              onClick={handleRestaurants}
             >
               <FiCodesandbox />
               <p>Restaurants</p>
@@ -68,7 +73,7 @@ const SideBar = ({ openBar }) => {
               className={
                 router.pathname.includes("transactions") ? "active" : "item"
               }
-              onClick={handleProfile}
+              onClick={handleTransactions}
             >
               <CgProfile />
               <p>Transactions</p>

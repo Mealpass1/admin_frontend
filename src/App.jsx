@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/login";
 import ForgotPassword from "./pages/forgotpassword";
 import Diners from "./pages/diners";
+import Restaurants from "./pages/restaurants";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" exact element={<Login />} />
         <Route path="/forgotpassword" exact element={<ForgotPassword />} />
         <Route path="/diners" exact element={<Diners />} />
+        <Route path="/restaurants" exact element={<Restaurants />} />
       </Routes>
     </Router>
   );
