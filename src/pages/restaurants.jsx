@@ -11,7 +11,7 @@ const Restaurants = () => {
   const [restaurants, setRestaurants] = React.useState([]);
 
   const showAdd = () => {
-    setShow(!show);
+    // setShow(!show);
   };
 
   React.useEffect(() => {

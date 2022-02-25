@@ -11,7 +11,7 @@ const Diners = () => {
   const [show, setShow] = React.useState(false);
 
   const showAdd = () => {
-    setShow(!show);
+    // setShow(!show);
   };
 
   React.useEffect(() => {
