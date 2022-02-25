@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { FaBars } from "react-icons/fa";
 
 import axios from "../features/axios";
+import SideBar from "./sidebar";
 
 const NavBar = ({ name }) => {
   const [bar, setBar] = React.useState(false);
