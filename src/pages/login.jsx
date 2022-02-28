@@ -118,17 +118,6 @@ const Login = () => {
               </>
             )}
           </button>
-          <div className="or">
-            <div className="up">
-              <div className="one"></div>
-              <div className="word">
-                <p>login as</p>
-              </div>
-              <div className="one"></div>
-            </div>
-            <button onClick={goDiner}>Diner</button>
-            <button onClick={goRestaurant}>Restaurant</button>
-          </div>
         </form>
       </div>
     </Container>
@@ -194,33 +183,6 @@ const Container = styled.div`
 
     form {
       width: 100%;
-
-      .or {
-        width: 100%;
-        height: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        button {
-          background: var(--opacity);
-        }
-
-        .up {
-          width: 100%;
-          height: 40px;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: space-around;
-
-          .one {
-            width: 40%;
-            height: 3px;
-            background: var(--opacity);
-          }
-        }
-      }
 
       a {
         height: 15px;
