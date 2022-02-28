@@ -25,7 +25,9 @@ const Box = ({ restaurant }) => {
           <p>Status</p>
         </div>
         <div className="content">
-          <p className="status">{restaurant?.status}</p>
+          <p className="status">
+            {restaurant?.status != "online" ? <>offline</> : <>online</>}
+          </p>
           {/* <p>Last Login: {restaurant?.lastLogin}</p> */}
         </div>
       </div>
