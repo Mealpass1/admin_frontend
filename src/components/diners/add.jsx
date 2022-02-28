@@ -39,7 +39,6 @@ const Add = ({ close }) => {
         password: data.password,
       })
       .then((response) => {
-        console.log(response);
         setLoading(false);
 
         if (!response.data.error) {

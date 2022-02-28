@@ -27,8 +27,10 @@ const Box = ({ diner }) => {
           <p>Status</p>
         </div>
         <div className="content">
-          <p className="status">{diner?.status}</p>
-          <p>Last Login: {diner?.last_login}</p>
+          <p className="status">
+            {diner?.status != "online" ? <>offline</> : <>online</>}
+          </p>
+          {/* <p>Last Login: {diner?.last_login}</p> */}
         </div>
       </div>
       <div className="item">
