@@ -5,13 +5,14 @@ import axios from "../features/axios";
 
 import NavBar from "../components/nav";
 import Box from "../components/diners/box";
+import Add from "../components/diners/add";
 
 const Diners = () => {
   const [diners, setDiners] = React.useState([]);
   const [show, setShow] = React.useState(false);
 
   const showAdd = () => {
-    // setShow(!show);
+    setShow(!show);
   };
 
   React.useEffect(() => {
