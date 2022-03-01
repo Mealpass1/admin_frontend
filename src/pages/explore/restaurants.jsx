@@ -1,14 +1,17 @@
 import * as React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
 
 import { FiSearch } from "react-icons/fi";
 import { FaShoppingCart } from "react-icons/fa";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 import axios from "../../features/axios";
 import Content from "../../components/explore/restaurants/container";
 
 const Restaurants = () => {
   const [data, setData] = React.useState([]);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -24,9 +27,16 @@ const Restaurants = () => {
     console.log(key);
   };
 
+  const goExplore = () => {
+    navigate("/explore");
+  };
+
   return (
     <Container>
       <Top>
+        <div className="settings" onClick={goExplore}>
+          <IoMdArrowRoundBack />
+        </div>
         <div className="company">
           <div className="logo">
             <img src="/logo.svg" alt="Logo" />
@@ -124,7 +134,18 @@ const Top = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
+
+  .settings {
+    width: 20%;
+    height: 100%;
+    padding: 1em 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
 
   .cart {
     width: 20%;

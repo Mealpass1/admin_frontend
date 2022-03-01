@@ -79,11 +79,11 @@ const Container = styled.div`
     .name {
       width: 30%;
       height: 100%;
-      padding: 0 10px;
+      padding: 10px 10px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      justify-content: center;
+      justify-content: flex-start;
 
       .title {
         font-weight: bold;

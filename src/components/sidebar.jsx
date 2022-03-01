@@ -37,7 +37,9 @@ const SideBar = ({ openBar }) => {
   const handleTransactions = () => {
     navigate("/transactions");
   };
-  const handleExplore = () => {};
+  const handleExplore = () => {
+    navigate("/explore");
+  };
   const handleLogout = () => {};
 
   return reactDom.createPortal(
