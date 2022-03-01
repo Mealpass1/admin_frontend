@@ -2,8 +2,10 @@ import * as React from "react";
 import styled from "styled-components";
 
 const Box = ({ diner }) => {
+  const [show, setShow] = React.useState(false);
+
   const showDetails = () => {
-    console.log("show details");
+    setShow(!show);
   };
 
   return (

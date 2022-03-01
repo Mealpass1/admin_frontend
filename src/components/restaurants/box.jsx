@@ -2,7 +2,11 @@ import * as React from "react";
 import styled from "styled-components";
 
 const Box = ({ restaurant }) => {
-  const showDetails = () => {};
+  const [show, setShow] = React.useState(false);
+
+  const showDetails = () => {
+    setShow(!show);
+  };
 
   return (
     <Container>
