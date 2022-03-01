@@ -9,6 +9,8 @@ import Login from "./pages/login";
 import ForgotPassword from "./pages/forgotpassword";
 import Diners from "./pages/diners";
 import Restaurants from "./pages/restaurants";
+import ExploreRestaurants from "./pages/explore/restaurants";
+import ExploreRestaurant from "./pages/explore/restaurant";
 import Transactions from "./pages/transactions";
 import Explore from "./pages/explore";
 import Width from "./components/width";
@@ -33,6 +35,16 @@ function App() {
           <Route path="/restaurants" exact element={<Restaurants />} />
           <Route path="/transactions" exact element={<Transactions />} />
           <Route path="/explore" exact element={<Explore />} />
+          <Route
+            path="/explore/restaurants"
+            exact
+            element={<ExploreRestaurants />}
+          />
+          <Route
+            path="/explore/restaurants/:id"
+            exact
+            element={<ExploreRestaurant />}
+          />
         </Routes>
       </Router>
     );
