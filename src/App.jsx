@@ -10,6 +10,7 @@ import ForgotPassword from "./pages/forgotpassword";
 import Diners from "./pages/diners";
 import Restaurants from "./pages/restaurants";
 import Transactions from "./pages/transactions";
+import Explore from "./pages/explore";
 import Width from "./components/width";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/diners" exact element={<Diners />} />
           <Route path="/restaurants" exact element={<Restaurants />} />
           <Route path="/transactions" exact element={<Transactions />} />
+          <Route path="/explore" exact element={<Explore />} />
         </Routes>
       </Router>
     );
