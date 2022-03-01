@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 
-const Box = ({ product }) => {
+const Box = ({ restaurant, product }) => {
   const router = useNavigate();
 
   const goToProduct = () => {
-    router(`/diner/recipes/${restaurant}/${product._id}`);
+    router(`/explore/products/${restaurant}/${product._id}`);
   };
 
   const variants = {

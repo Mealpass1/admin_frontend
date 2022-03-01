@@ -11,6 +11,7 @@ import Diners from "./pages/diners";
 import Restaurants from "./pages/restaurants";
 import ExploreRestaurants from "./pages/explore/restaurants";
 import ExploreRestaurant from "./pages/explore/restaurant";
+import ExploreProduct from "./pages/explore/dish";
 import Transactions from "./pages/transactions";
 import Explore from "./pages/explore";
 import Width from "./components/width";
@@ -44,6 +45,11 @@ function App() {
             path="/explore/restaurants/:id"
             exact
             element={<ExploreRestaurant />}
+          />
+          <Route
+            exact
+            path="/explore/products/:restaurant/:product"
+            element={<ExploreProduct />}
           />
         </Routes>
       </Router>

@@ -8,7 +8,7 @@ const Box = ({ product }) => {
   const query = useParams();
 
   const goToProduct = () => {
-    push(`/diner/recipes/${query.restaurant}/${product._id}`);
+    push(`/explore/products/${query.id}/${product._id}`);
   };
 
   const variants = {
