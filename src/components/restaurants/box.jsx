@@ -1,11 +1,12 @@
 import * as React from "react";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 
 const Box = ({ restaurant }) => {
-  const [show, setShow] = React.useState(false);
+  const navigate = useNavigate();
 
-  const showDetails = () => {
-    setShow(!show);
+  const goLogin = () => {
+    navigate("/admin/restaurant/login");
   };
 
   return (
@@ -64,7 +65,7 @@ const Box = ({ restaurant }) => {
           <p>Action</p>
         </div>
         <div className="content">
-          <button onClick={showDetails}>View more</button>
+          <button onClick={goLogin}>View more</button>
         </div>
       </div>
     </Container>
