@@ -14,6 +14,8 @@ import ExploreRestaurant from "./pages/explore/restaurant";
 import ExploreProduct from "./pages/explore/dish";
 import Transactions from "./pages/transactions";
 import Explore from "./pages/explore";
+import DinerLogin from "./components/diners/login";
+import RestaurantLogin from "./components/restaurants/login";
 import Width from "./components/width";
 
 function App() {
@@ -50,6 +52,12 @@ function App() {
             exact
             path="/explore/products/:restaurant/:product"
             element={<ExploreProduct />}
+          />
+          <Route exact path="admin/diner/login" element={<DinerLogin />} />
+          <Route
+            exact
+            path="admin/restaurant/login"
+            element={<RestaurantLogin />}
           />
         </Routes>
       </Router>
