@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 //pages
-import Login from "./pages/login";
+import Login from "./pages/login/admin";
 import ForgotPassword from "./pages/forgotpassword";
 import Diners from "./pages/diners";
 import Restaurants from "./pages/restaurants";
@@ -14,8 +14,8 @@ import ExploreRestaurant from "./pages/explore/restaurant";
 import ExploreProduct from "./pages/explore/dish";
 import Transactions from "./pages/transactions";
 import Explore from "./pages/explore";
-import DinerLogin from "./components/diners/login";
-import RestaurantLogin from "./components/restaurants/login";
+import DinerLogin from "./pages/login/diner";
+import RestaurantLogin from "./pages/login/restaurant";
 import Width from "./components/width";
 
 function App() {

@@ -9,8 +9,8 @@ import { BiUserCheck } from "react-icons/bi";
 import { FiLock } from "react-icons/fi";
 import { AiOutlineEye } from "react-icons/ai";
 
-import axios from "../features/axios";
-import Logo from "../components/logo";
+import axios from "../../features/axios";
+import Logo from "../../components/logo";
 
 const Login = () => {
   const router = useNavigate();
