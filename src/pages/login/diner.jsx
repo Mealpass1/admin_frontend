@@ -1,14 +1,44 @@
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 
 import { AiOutlineEye } from "react-icons/ai";
 import { BiUserCheck } from "react-icons/bi";
 import { FiLock } from "react-icons/fi";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { useNavigate } from "react-router";
+import axios from "../../features/axios";
 
 const Login = () => {
+  const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    setLoading(true);
+    const token = sessionStorage.getItem("token");
+
+    axios.post(
+      "/diner/login",
+      {
+        username: data.username,
+        password: data.password,
+      },
+      {
+        headers: {
+          auth: token,
+        },
+      },
+      (response) => {
+        console.log(response.data);
+      }
+    );
+  };
 
   const goBack = () => {
     navigate(-1);
@@ -29,23 +59,43 @@ const Login = () => {
         <div className="text">
           <p className="title">Login to Access Diner Page</p>
         </div>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="inputs">
             <div className="row">
               <label htmlFor="email">
                 <BiUserCheck />
               </label>
-              <input type="email" id="email" placeholder="Email" />
+              <input
+                type="email"
+                id="email"
+                placeholder="Diner username"
+                {...register("username", {
+                  required: true,
+                })}
+              />
             </div>
+            {errors.username?.type === "required" && (
+              <p className="perror">Please enter diner username</p>
+            )}
             <div className="row">
               <label htmlFor="password">
                 <FiLock />
               </label>
-              <input type="password" id="password" placeholder="Password" />
+              <input
+                type="password"
+                id="password"
+                placeholder="Super password"
+                {...register("password", {
+                  required: true,
+                })}
+              />
               <label htmlFor="password">
                 <AiOutlineEye />
               </label>
             </div>
+            {errors.password?.type === "required" && (
+              <p className="perror">Please enter super password</p>
+            )}
           </div>
           <button type="submit">Log In</button>
         </form>
