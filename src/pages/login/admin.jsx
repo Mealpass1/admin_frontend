@@ -42,17 +42,16 @@ const Login = () => {
           });
         } else {
           sessionStorage.setItem("token", response.data.data);
-          router("/diners");
+          setTimeout(() => {
+            router("/diners");
+          }, 1000);
+          toast.success("Welcome back!", {
+            toastId: "custome-id",
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
         }
       });
-  };
-
-  const goDiner = () => {
-    router.push("/login/diner");
-  };
-
-  const goRestaurant = () => {
-    router.push("/login/restaurant");
   };
 
   const handleShowPassword = () => {

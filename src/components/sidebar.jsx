@@ -1,6 +1,7 @@
 import * as React from "react";
 import reactDom from "react-dom";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router";
 
@@ -40,7 +41,18 @@ const SideBar = ({ openBar }) => {
   const handleExplore = () => {
     navigate("/explore");
   };
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    openBar();
+    setTimeout(() => {
+      sessionStorage.removeItem("token");
+      navigate("/");
+    }, 2000);
+    toast.info("See you soon!", {
+      toastId: "custom-id-yes",
+      position: toast.POSITION.TOP_CENTER,
+      onClose: 2000,
+    });
+  };
 
   return reactDom.createPortal(
     <Container>
