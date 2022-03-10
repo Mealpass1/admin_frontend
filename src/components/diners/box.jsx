@@ -9,6 +9,24 @@ const Box = ({ diner }) => {
     navigate("/admin/diner/login");
   };
 
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const lastLogin = diner?.lastLogin;
+  const date = new Date(lastLogin);
+
   return (
     <Container>
       <div className="top">
@@ -33,7 +51,12 @@ const Box = ({ diner }) => {
           <p className="status">
             {diner?.status != "online" ? <>offline</> : <>online</>}
           </p>
-          {/* <p>Last Login: {diner?.last_login}</p> */}
+          <p>
+            Last login: <span> </span>
+            {`${date.getDate()}/${
+              months[date.getMonth()]
+            }/${date.getFullYear()}`}
+          </p>
         </div>
       </div>
       <div className="item">
