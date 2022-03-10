@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 //pages
-import Login from "./pages/login/admin";
+import Login from "./pages/login";
 import ForgotPassword from "./pages/forgotpassword";
 import Diners from "./pages/diners";
 import Restaurants from "./pages/restaurants";
@@ -14,8 +14,6 @@ import ExploreRestaurant from "./pages/explore/restaurant";
 import ExploreProduct from "./pages/explore/dish";
 import Transactions from "./pages/transactions";
 import Explore from "./pages/explore";
-import DinerLogin from "./pages/login/diner";
-import RestaurantLogin from "./pages/login/restaurant";
 import Width from "./components/width";
 
 function App() {
@@ -52,12 +50,6 @@ function App() {
             exact
             path="/explore/products/:restaurant/:product"
             element={<ExploreProduct />}
-          />
-          <Route exact path="admin/diner/login" element={<DinerLogin />} />
-          <Route
-            exact
-            path="admin/restaurant/login"
-            element={<RestaurantLogin />}
           />
         </Routes>
       </Router>

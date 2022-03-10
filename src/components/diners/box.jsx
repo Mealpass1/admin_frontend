@@ -5,9 +5,7 @@ import styled from "styled-components";
 const Box = ({ diner }) => {
   const navigate = useNavigate();
 
-  const login = () => {
-    navigate("/admin/diner/login");
-  };
+  const goDiner = () => {};
 
   const months = [
     "Jan",
@@ -80,7 +78,7 @@ const Box = ({ diner }) => {
           <p>Action</p>
         </div>
         <div className="content">
-          <button onClick={login}>View more</button>
+          <button onClick={goDiner}>View more</button>
         </div>
       </div>
     </Container>
