@@ -1,13 +1,8 @@
 import * as React from "react";
-import { useNavigate } from "react-router";
 import styled from "styled-components";
 
 const Box = ({ restaurant }) => {
-  const navigate = useNavigate();
-
-  const goLogin = () => {
-    navigate("/admin/restaurant/login");
-  };
+  const link = "http://localhost:3001/restaurant/requests?type=admin";
 
   const months = [
     "Jan",
@@ -88,7 +83,7 @@ const Box = ({ restaurant }) => {
           <p>Action</p>
         </div>
         <div className="content">
-          <button onClick={goLogin}>View more</button>
+          <a href={link}>View more</a>
         </div>
       </div>
     </Container>
@@ -171,7 +166,7 @@ const Container = styled.div`
       align-items: flex-start;
       justify-content: space-around;
 
-      button {
+      a {
         width: 60%;
         height: 45%;
         border-radius: 5px;

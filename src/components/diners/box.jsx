@@ -1,11 +1,8 @@
 import * as React from "react";
-import { useNavigate } from "react-router";
 import styled from "styled-components";
 
 const Box = ({ diner }) => {
-  const navigate = useNavigate();
-
-  const goDiner = () => {};
+  const link = "http://localhost:3001/diner/explore?type=admin";
 
   const months = [
     "Jan",
@@ -78,7 +75,7 @@ const Box = ({ diner }) => {
           <p>Action</p>
         </div>
         <div className="content">
-          <button onClick={goDiner}>View more</button>
+          <a href={link}>View more</a>
         </div>
       </div>
     </Container>
@@ -157,9 +154,12 @@ const Container = styled.div`
       align-items: flex-start;
       justify-content: space-around;
 
-      button {
+      a {
         width: 60%;
         height: 45%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border-radius: 5px;
         border: none;
         background: var(--bright);
