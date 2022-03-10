@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 const Box = ({ restaurant }) => {
-  const link = "http://localhost:3001/restaurant/requests?type=admin";
+  const goRestaurant = () => {};
 
   const months = [
     "Jan",
@@ -83,7 +83,7 @@ const Box = ({ restaurant }) => {
           <p>Action</p>
         </div>
         <div className="content">
-          <a href={link}>View more</a>
+          <button onClick={goRestaurant}>View more</button>
         </div>
       </div>
     </Container>
@@ -166,7 +166,7 @@ const Container = styled.div`
       align-items: flex-start;
       justify-content: space-around;
 
-      a {
+      button {
         width: 60%;
         height: 45%;
         border-radius: 5px;

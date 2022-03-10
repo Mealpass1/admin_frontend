@@ -1,41 +1,41 @@
 import * as React from "react";
 import styled from "styled-components";
 
-import axios from "../features/axios";
+import axios from "../../features/axios";
 
-import NavBar from "../components/nav";
-import Box from "../components/diners/box";
-import Add from "../components/diners/add";
+import NavBar from "../../components/nav";
+import Box from "../../components/restaurants/box";
+import Add from "../../components/restaurants/add";
 
-const Diners = () => {
-  const [diners, setDiners] = React.useState([]);
+const Restaurants = () => {
   const [show, setShow] = React.useState(false);
+  const [restaurants, setRestaurants] = React.useState([]);
 
   const showAdd = () => {
     setShow(!show);
   };
 
   React.useEffect(() => {
-    axios.get("/diner").then((response) => {
-      setDiners(response.data.data);
+    axios.get("/restaurant").then((response) => {
+      setRestaurants(response.data.data);
     });
   }, []);
 
   return (
     <Container>
       {show == true ? <Add close={showAdd} /> : <></>}
-      <NavBar name="Diners" />
+      <NavBar name="Restaurants" />
       <div className="top">
         <p>All</p>
         <button onClick={showAdd}>Add+</button>
       </div>
       <div className="content">
-        {diners.length == 0 ? (
-          <p>No diners</p>
+        {restaurants.length == 0 ? (
+          <p>No restaurants</p>
         ) : (
           <>
-            {diners.map((diner, index) => (
-              <Box key={index} diner={diner} />
+            {restaurants.map((restaurant, index) => (
+              <Box key={index} restaurant={restaurant} />
             ))}
           </>
         )}
@@ -82,4 +82,4 @@ const Container = styled.div`
   }
 `;
 
-export default Diners;
+export default Restaurants;

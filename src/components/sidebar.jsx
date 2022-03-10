@@ -44,7 +44,7 @@ const SideBar = ({ openBar }) => {
   const handleLogout = () => {
     openBar();
     setTimeout(() => {
-      sessionStorage.removeItem("token");
+      localStorage.removeItem("token");
       navigate("/");
     }, 2000);
     toast.info("See you soon!", {
