@@ -2,6 +2,7 @@
 import * as React from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import jwtDecode from "jwt-decode";
 import { useNavigate, useParams } from "react-router";
 import { useForm } from "react-hook-form";
 
@@ -54,6 +55,7 @@ const Product = () => {
   ];
 
   const onSubmit = (data) => {
+    const { id } = jwtDecode(token);
     if (
       data.timeOfMeal == "none" ||
       data.repeatsInMonth == "none" ||
@@ -71,6 +73,7 @@ const Product = () => {
         .post(
           "/cart/add",
           {
+            owner: `${id}`,
             quantity: amount,
             timeOfMeal: data.timeOfMeal,
             daysInWeek: days,
