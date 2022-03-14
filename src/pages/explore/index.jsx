@@ -3,9 +3,16 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import NavBar from "../../components/nav";
+import axios from "../../features/axios";
 
 const Explore = () => {
   const [packages, setPackages] = React.useState([]);
+
+  React.useEffect(() => {
+    axios.get("/package").then((response) => {
+      setPackages(response.data.data);
+    });
+  }, []);
 
   return (
     <Container>
