@@ -20,6 +20,10 @@ const Restaurant = () => {
     router("/explore/restaurants");
   };
 
+  const goCart = () => {
+    router("/explore/cart");
+  };
+
   const handleSearch = (key) => {
     console.log(key);
   };
@@ -52,7 +56,7 @@ const Restaurant = () => {
           <p className="para">{data?.description}.</p>
         </div>
         <div className="cart">
-          <CartIcon>
+          <CartIcon onClick={goCart}>
             <FaShoppingCart />
           </CartIcon>
         </div>

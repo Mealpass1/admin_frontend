@@ -31,6 +31,10 @@ const Restaurants = () => {
     navigate("/explore");
   };
 
+  const goCart = () => {
+    navigate("/explore/cart");
+  };
+
   return (
     <Container>
       <Top>
@@ -44,7 +48,7 @@ const Restaurants = () => {
           <p>welcome to mealpass</p>
         </div>
         <div className="cart">
-          <CartIcon>
+          <CartIcon onClick={goCart}>
             <FaShoppingCart />
           </CartIcon>
         </div>

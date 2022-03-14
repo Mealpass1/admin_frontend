@@ -71,14 +71,13 @@ const Product = () => {
     } else {
       axios
         .post(
-          "/cart/add",
+          "/admin/cart/add",
           {
             owner: `${id}`,
             quantity: amount,
             timeOfMeal: data.timeOfMeal,
             daysInWeek: days,
             deliveryMode: mode,
-            repeatesInMonth: data.repeatsInMonth,
             restaurant: query.restaurant,
             dish: query.product,
             price: price,
@@ -125,6 +124,10 @@ const Product = () => {
     router(-1);
   };
 
+  const goCart = () => {
+    router("/explore/cart");
+  };
+
   const handleMode = (e) => {
     setMode(modeRef.current.value);
   };
@@ -167,7 +170,7 @@ const Product = () => {
             <IoArrowBackOutline />
           </div>
           <div className="cart">
-            <CartIcon>
+            <CartIcon onClick={goCart}>
               <FaShoppingCart />
             </CartIcon>
           </div>
@@ -248,21 +251,6 @@ const Product = () => {
                     <label htmlFor={mode.mode}>{mode.mode}</label>
                   </div>
                 ))}
-              </div>
-              <div className="four">
-                <p className="bold">4. How many repeat in a month?</p>
-                <select
-                  name="time"
-                  {...register("repeatsInMonth", {
-                    required: true,
-                  })}
-                >
-                  <option value="none">None</option>
-                  <option value="1">Just this week</option>
-                  <option value="2">Over the next 2 weeks</option>
-                  <option value="3">Over the next 3 weeks</option>
-                  <option value="4">Over the next 4 weeks</option>
-                </select>
               </div>
             </div>
           </div>
