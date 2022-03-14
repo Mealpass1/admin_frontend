@@ -14,6 +14,7 @@ import ExploreRestaurant from "./pages/explore/restaurant";
 import ExploreProduct from "./pages/explore/dish";
 import Transactions from "./pages/transactions";
 import Explore from "./pages/explore";
+import Cart from "./pages/explore/cart";
 import Width from "./components/width";
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
             path="/explore/products/:restaurant/:product"
             element={<ExploreProduct />}
           />
+          <Route path="/explore/cart" exact element={<Cart />} />
         </Routes>
       </Router>
     );
