@@ -16,6 +16,7 @@ import Transactions from "./pages/transactions";
 import Explore from "./pages/explore";
 import Cart from "./pages/explore/cart";
 import Width from "./components/width";
+import CartItem from "./pages/explore/cart/product";
 
 function App() {
   const [width, setWidth] = React.useState("");
@@ -53,6 +54,7 @@ function App() {
             element={<ExploreProduct />}
           />
           <Route path="/explore/cart" exact element={<Cart />} />
+          <Route path="/explore/cart/:id" exact element={<CartItem />} />
         </Routes>
       </Router>
     );
