@@ -115,7 +115,7 @@ const CartItem = () => {
                   </option>
                   <option
                     value="dinner"
-                    selected={time == "dinner" ? `${true}` : `${false}`}
+                    selected={time == "diner" ? `${true}` : `${false}`}
                   >
                     Dinner
                   </option>

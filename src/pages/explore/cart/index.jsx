@@ -7,8 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoArrowBackOutline, IoBagCheckOutline } from "react-icons/io5";
 
 import axios from "../../../features/axios";
+import {
+  add,
+  getTotal,
+  getFee,
+  getMealserving,
+} from "../../../state/reducers/cart";
+
 import Box from "../../../components/explore/cart/box";
-import { add, getTotal, getFee } from "../../../state/reducers/cart";
+import Add from "../../../components/explore/cart/package";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -17,6 +24,7 @@ const Cart = () => {
   const total = useSelector((state) => state.cart.total) || 0;
   const fee = useSelector((state) => state.cart.fee) || 0;
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -29,22 +37,15 @@ const Cart = () => {
         dispatch(add(response.data.data));
         dispatch(getTotal());
         dispatch(getFee());
+        dispatch(getMealserving());
         setData(response.data.data);
       });
   }, []);
 
   const all = useSelector((state) => state.cart.cart);
 
-  const checkout = () => {
-    setLoading(true);
-    const array = [];
-    for (let item of all) {
-      array.push({
-        cart: item._id,
-        dish: item.dish._id,
-        restaurant: item.restaurant._id,
-      });
-    }
+  const openShow = () => {
+    setShow(!show);
   };
 
   const goBack = () => {
@@ -73,6 +74,7 @@ const Cart = () => {
 
   return (
     <Layout>
+      {show == true ? <Add close={openShow} /> : <></>}
       <Top>
         <div className="top">
           <div className="back" onClick={goBack}>
@@ -123,13 +125,13 @@ const Cart = () => {
               </tbody>
             </table>
           </div>
-          <div className="checkout" onClick={checkout}>
+          <div className="checkout" onClick={openShow}>
             {loading ? (
               <img src="/loader.svg" alt="loader" />
             ) : (
               <>
                 <IoBagCheckOutline />
-                <p>proceed to checkout</p>
+                <p>Publish to explore</p>
               </>
             )}
           </div>
