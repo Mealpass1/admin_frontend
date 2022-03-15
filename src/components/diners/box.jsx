@@ -67,7 +67,7 @@ const Box = ({ diner }) => {
           <p>Total Purchases</p>
         </div>
         <div className="content">
-          <p className="bold">{diner?.purchases}</p>
+          <p>{diner?.purchases}</p>
         </div>
       </div>
       <div className="item">

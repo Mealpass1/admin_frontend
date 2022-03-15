@@ -1,20 +1,18 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useQuery } from "react-query";
+import Stack from "@mui/material/Stack";
+import Skeleton from "@mui/material/Skeleton";
 
 import axios from "../../features/axios";
 import NavBar from "../../components/nav";
 import Box from "../../components/explore/box";
 
 const Explore = () => {
-  const [packages, setPackages] = React.useState([]);
-
-  React.useEffect(() => {
-    axios.get("/package").then((response) => {
-      setPackages(response.data.data);
-      console.log(response.data.data);
-    });
-  }, []);
+  const { isLoading, data } = useQuery("diners", async () => {
+    return await axios.get("/package").then((res) => res.data);
+  });
 
   return (
     <Container>
@@ -23,19 +21,38 @@ const Explore = () => {
         <p>All</p>
         <Link to="/explore/restaurants">Add+</Link>
       </div>
-      <div className="content">
-        {packages.length == 0 ? (
-          <>
-            <p>No packages</p>
-          </>
-        ) : (
-          <>
-            {packages.map((item, index) => (
-              <Box basket={item} key={index} />
-            ))}
-          </>
-        )}
-      </div>
+      {isLoading ? (
+        <Stack spacing={1}>
+          <Skeleton
+            variant="rectangular"
+            width={350}
+            height={320}
+            style={{ borderRadius: 5 }}
+          />
+          <Skeleton
+            variant="rectangular"
+            width={350}
+            height={320}
+            style={{ borderRadius: 5 }}
+          />
+        </Stack>
+      ) : (
+        <>
+          <div className="content">
+            {data?.data?.length == 0 ? (
+              <>
+                <p>No packages</p>
+              </>
+            ) : (
+              <>
+                {data?.data?.map((item, index) => (
+                  <Box basket={item} key={index} />
+                ))}
+              </>
+            )}
+          </div>
+        </>
+      )}
     </Container>
   );
 };

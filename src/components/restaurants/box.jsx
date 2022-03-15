@@ -67,7 +67,7 @@ const Box = ({ restaurant }) => {
           <p>Total Revenues</p>
         </div>
         <div className="content">
-          <p className="bold">{restaurant?.revenue}</p>
+          <p>{restaurant?.revenue}</p>
         </div>
       </div>
       <div className="item">
@@ -75,7 +75,7 @@ const Box = ({ restaurant }) => {
           <p>Transfer Cashout</p>
         </div>
         <div className="content">
-          <p className="bold">{restaurant?.cashout}</p>
+          <p>{restaurant?.cashout}</p>
         </div>
       </div>
       <div className="item">

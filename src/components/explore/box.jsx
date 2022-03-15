@@ -9,7 +9,7 @@ const Box = ({ basket }) => {
           <p>Name</p>
         </div>
         <div className="content">
-          <p className="bold">{basket?.name} Package</p>
+          <p>{basket?.name} Package</p>
         </div>
       </div>
       <div className="item">
@@ -17,7 +17,7 @@ const Box = ({ basket }) => {
           <p>Subscribers</p>
         </div>
         <div className="content">
-          <p className="bold">{basket?.subscribers}</p>
+          <p>{basket?.subscribers}</p>
         </div>
       </div>
       <div className="item">
@@ -33,7 +33,7 @@ const Box = ({ basket }) => {
           <p>Timestamp</p>
         </div>
         <div className="content">
-          <p className="bold">{basket?.revenue}</p>
+          <p>{basket?.revenue}</p>
         </div>
       </div>
       <div className="item">
@@ -41,7 +41,7 @@ const Box = ({ basket }) => {
           <p>Price</p>
         </div>
         <div className="content">
-          <p className="bold">{basket?.price} RWF</p>
+          <p>{basket?.price} RWF</p>
         </div>
       </div>
       <div className="item">
@@ -49,7 +49,7 @@ const Box = ({ basket }) => {
           <p>Revenue</p>
         </div>
         <div className="content">
-          <p className="bold">{basket?.revenue} RWF</p>
+          <p>{basket?.revenue} RWF</p>
         </div>
       </div>
       <div className="item">
@@ -66,7 +66,7 @@ const Box = ({ basket }) => {
 
 const Container = styled.div`
   width: 90%;
-  height: 430px;
+  height: 370px;
   margin: 10px 0;
   padding: 10px 0;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
@@ -115,7 +115,7 @@ const Container = styled.div`
 
   .item {
     width: 90%;
-    height: 60px;
+    height: 50px;
     display: flex;
     flex-direction: row;
     align-items: center;
