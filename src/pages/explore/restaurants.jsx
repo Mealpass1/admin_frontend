@@ -16,7 +16,7 @@ const Restaurants = () => {
   const [token, setToken] = React.useState("");
   const navigate = useNavigate();
 
-  const { isLoading, data } = useQuery("diners", async () => {
+  const { isLoading, data } = useQuery("restaurants", async () => {
     return await axios
       .get("/restaurant", { headers: { auth: `${token}` } })
       .then((res) => res.data);

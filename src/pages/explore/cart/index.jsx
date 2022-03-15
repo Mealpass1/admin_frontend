@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -25,21 +26,16 @@ const Cart = () => {
   const fee = useSelector((state) => state.cart.fee) || 0;
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
-  const [data, setData] = useState([]);
+
+  const { isLoading, data } = useQuery("cart", async () => {
+    return await axios
+      .get("/admin/cart", { headers: { auth: `${token}` } })
+      .then((res) => res.data);
+  });
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     setToken(token);
-
-    axios
-      .get("/admin/cart", { headers: { auth: `${token}` } })
-      .then((response) => {
-        dispatch(add(response.data.data));
-        dispatch(getTotal());
-        dispatch(getFee());
-        dispatch(getMealserving());
-        setData(response.data.data);
-      });
   }, []);
 
   const all = useSelector((state) => state.cart.cart);
@@ -90,19 +86,19 @@ const Cart = () => {
             <img src="/logo.svg" alt="logo" />
           </div>
           <div className="two">
-            <p>{data.length} items in cart</p>
+            <p>{data?.data?.length || 0} items in cart</p>
           </div>
           <div className="three">
             <p>
               <span>Note: </span>
-              Meal Serving = Your Order Quantity x Your Days per week
+              Meal Serving = Order Quantity x Days
             </p>
           </div>
         </div>
       </Top>
       <Content>
         <Container>
-          {data?.map((item, index) => (
+          {data?.data?.map((item, index) => (
             <Box item={item} key={index} delete={handleDelete} />
           ))}
         </Container>

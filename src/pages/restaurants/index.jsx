@@ -17,7 +17,7 @@ const Restaurants = () => {
     setShow(!show);
   };
 
-  const { isLoading, data } = useQuery("diners", async () => {
+  const { isLoading, data } = useQuery("restaurants", async () => {
     return await axios.get("/restaurant").then((res) => res.data);
   });
 

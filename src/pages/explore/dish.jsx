@@ -1,10 +1,11 @@
 //packages
 import * as React from "react";
-import { toast } from "react-toastify";
-import styled from "styled-components";
 import jwtDecode from "jwt-decode";
-import { useNavigate, useParams } from "react-router";
+import { toast } from "react-toastify";
+import { useQuery } from "react-query";
+import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router";
 
 //icons
 import { FaShoppingCart } from "react-icons/fa";
@@ -25,7 +26,12 @@ const Product = () => {
   const [mode, setMode] = React.useState("none");
   const [loading, setLoading] = React.useState(false);
   const [added, setAdded] = React.useState(false);
-  const [data, setData] = React.useState({});
+
+  const { isLoading, data } = useQuery("dish", async () => {
+    return await axios
+      .get(`/dish/${query.product}`, { headers: { auth: `${token}` } })
+      .then((res) => res.data);
+  });
 
   const price = data?.price;
 
@@ -148,18 +154,6 @@ const Product = () => {
   React.useEffect(() => {
     const token = sessionStorage.getItem("token");
     setToken(token);
-    axios
-      .get(`/dish/${query.product}`, { headers: { auth: `${token}` } })
-      .then((response) => {
-        if (response.data.status === "error") {
-          console.log(response.data.message);
-        } else {
-          setData(response.data.data);
-        }
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
   }, []);
 
   return (
@@ -177,19 +171,19 @@ const Product = () => {
         </div>
       </Top>
       <Image>
-        <img src={data?.image} alt={data?.name} />
+        <img src={data?.data?.image} alt={data?.data?.name} />
       </Image>
       <Content>
         <div className="title">
-          <p>{data?.name}</p>
-          <p>{data?.price} RWF</p>
+          <p>{data?.data?.name}</p>
+          <p>{data?.data?.price} RWF</p>
         </div>
         <div className="announcement">
-          <p>{data?.discount}%Off</p>
+          <p>{data?.data?.discount}%Off</p>
         </div>
         <div className="description">
           <p className="bolder">Decription</p>
-          <p className="description_text">{data?.description}</p>
+          <p className="description_text">{data?.data?.description}</p>
           <div className="amount">
             <div className="plus" onClick={increaseAmount}>
               <AiOutlinePlus />

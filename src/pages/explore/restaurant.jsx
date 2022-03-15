@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router";
+import { useQuery } from "react-query";
 
 import { FiSearch } from "react-icons/fi";
 import { FaShoppingCart } from "react-icons/fa";
@@ -13,7 +14,7 @@ import Dishes from "../../components/explore/restaurant/container";
 const Restaurant = () => {
   const router = useNavigate();
   const query = useParams();
-  const [data, setData] = React.useState({});
+  const [token, setToken] = React.useState("");
   const [active, setActive] = React.useState("all");
 
   const goBack = () => {
@@ -28,16 +29,17 @@ const Restaurant = () => {
     console.log(key);
   };
 
-  React.useEffect(() => {
-    const token = sessionStorage.getItem("token");
-
-    axios
+  const { isLoading, data } = useQuery("restaurant", async () => {
+    return await axios
       .get(`/restaurant/${query.id}`, {
         headers: { auth: `${token}` },
       })
-      .then((response) => {
-        setData(response.data.data);
-      });
+      .then((res) => res.data);
+  });
+
+  React.useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    setToken(token);
   }, []);
 
   return (
@@ -50,10 +52,10 @@ const Restaurant = () => {
         </div>
         <div className="company">
           <div className="logo">
-            <img src={data?.picture} alt="Logo" />
+            <img src={data?.data?.picture} alt="Logo" />
           </div>
-          <p className="title">welcome to {data?.businessName}</p>
-          <p className="para">{data?.description}.</p>
+          <p className="title">welcome to {data?.data?.businessName}</p>
+          <p className="para">{data?.data?.description}.</p>
         </div>
         <div className="cart">
           <CartIcon onClick={goCart}>
@@ -74,7 +76,7 @@ const Restaurant = () => {
       </Content>
       <Nav>
         <div className="paras">
-          {data?.dishTypes?.map((category, index) => (
+          {data?.data?.dishTypes?.map((category, index) => (
             <p
               key={index}
               className={active == category ? `active` : ""}
@@ -85,7 +87,7 @@ const Restaurant = () => {
           ))}
         </div>
       </Nav>
-      <Dishes active={active} dishes={data?.dishes} />
+      <Dishes active={active} dishes={data?.data?.dishes} />
     </Container>
   );
 };
