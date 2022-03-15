@@ -14,6 +14,8 @@ const Explore = () => {
     return await axios.get("/package").then((res) => res.data);
   });
 
+  console.log(data);
+
   return (
     <Container>
       <NavBar name="Explore" />
