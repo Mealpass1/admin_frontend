@@ -16,9 +16,17 @@ const cartSlice = createSlice({
       state.dishes = [];
       state.restaurants = [];
       action.payload.forEach((item) => {
-        state.dishes.push(item._id);
-        if (!state.restaurants.includes(item._id)) {
-          state.restaurants.push(item._id);
+        state.dishes.push({ name: item.name, id: item._id });
+        if (
+          !state.restaurants.includes({
+            name: item.restaurant.businessName,
+            id: item.restaurant._id,
+          })
+        ) {
+          state.restaurants.push({
+            name: item.restaurant.businessName,
+            id: item.restaurant._id,
+          });
         }
       });
     },
