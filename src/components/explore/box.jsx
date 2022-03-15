@@ -25,15 +25,7 @@ const Box = ({ basket }) => {
           <p>Restaurant</p>
         </div>
         <div className="content">
-          <p>{basket?.restaurant?.burinessName}</p>
-        </div>
-      </div>
-      <div className="item">
-        <div className="title">
-          <p>Timestamp</p>
-        </div>
-        <div className="content">
-          <p>{basket?.revenue}</p>
+          <p>{basket?.restaurant?.businessName}</p>
         </div>
       </div>
       <div className="item">
@@ -66,7 +58,7 @@ const Box = ({ basket }) => {
 
 const Container = styled.div`
   width: 90%;
-  height: 370px;
+  height: 300px;
   margin: 10px 0;
   padding: 10px 0;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
