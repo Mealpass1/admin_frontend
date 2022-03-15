@@ -26,14 +26,16 @@ const Product = () => {
   const [mode, setMode] = React.useState("none");
   const [loading, setLoading] = React.useState(false);
   const [added, setAdded] = React.useState(false);
+  const [price, setPrice] = React.useState("");
 
   const { isLoading, data } = useQuery("dish", async () => {
     return await axios
       .get(`/dish/${query.product}`, { headers: { auth: `${token}` } })
-      .then((res) => res.data);
+      .then((res) => {
+        setPrice(res.data.data.price);
+        return res.data;
+      });
   });
-
-  const price = data?.price;
 
   const { register, handleSubmit } = useForm();
 

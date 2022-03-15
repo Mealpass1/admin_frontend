@@ -30,7 +30,13 @@ const Cart = () => {
   const { isLoading, data } = useQuery("cart", async () => {
     return await axios
       .get("/admin/cart", { headers: { auth: `${token}` } })
-      .then((res) => res.data);
+      .then((res) => {
+        dispatch(add(res?.data?.data));
+        dispatch(getTotal());
+        dispatch(getFee());
+        dispatch(getMealserving());
+        return res.data;
+      });
   });
 
   useEffect(() => {

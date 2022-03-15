@@ -1,6 +1,7 @@
 //packages
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router";
 
 import { IoArrowBackOutline } from "react-icons/io5";
@@ -14,11 +15,21 @@ const CartItem = () => {
   const router = useNavigate();
   const [loading, setLoading] = useState(false);
   const [updated, setUpdated] = useState(false);
-  const [data, setData] = useState({});
+  const [token, setToken] = useState("");
+  const [time, setTime] = useState("");
+  const [days, setDays] = useState([]);
+  const [mode, setMode] = useState("");
 
-  const [time, setTime] = useState(data?.timeOfMeal);
-  const [days, setDays] = useState(data?.daysInWeek);
-  const [mode, setMode] = useState(data?.deliveryMode);
+  const { isLoading, data } = useQuery("cartItem", async () => {
+    return await axios
+      .get(`admin/cart/${query.id}`, { headers: { auth: `${token}` } })
+      .then((res) => {
+        setTime(res.data.data.timeOfMeal);
+        setTime(res.data.data.daysInWeek);
+        setTime(res.data.data.deliveryMode);
+        return res.data;
+      });
+  });
 
   const daysOfWeek = [
     "Monday",
@@ -54,12 +65,7 @@ const CartItem = () => {
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
-
-    axios
-      .get(`admin/cart/${query.id}`, { headers: { auth: `${token}` } })
-      .then((response) => {
-        setData(response.data.data);
-      });
+    setToken(token);
   }, []);
 
   return (
@@ -75,23 +81,23 @@ const CartItem = () => {
         </div>
       </Top>
       <Image>
-        <img src={data?.dish?.image} alt={data?.dish?.name} />
+        <img src={data?.data?.dish?.image} alt={data?.data?.dish?.name} />
       </Image>
       <Container onSubmit={updateCart}>
         <div className="content">
           <div className="title">
-            <p>{data?.dish?.name}</p>
-            <p>{data?.dish?.price} RWF</p>
+            <p>{data?.data?.dish?.name}</p>
+            <p>{data?.data?.dish?.price} RWF</p>
           </div>
           <div className="announcement">
-            <p>({data?.dish?.discount}%Off)</p>
+            <p>({data?.data?.dish?.discount}%Off)</p>
           </div>
 
           <div className="description">
             <p className="bolder">Decription</p>
-            <p className="description_text">{data?.dish?.description}</p>
+            <p className="description_text">{data?.data?.dish?.description}</p>
             <div className="amount">
-              Total Meal Serving = <span>{data?.mealServing}</span>
+              Total Meal Serving = <span>{data?.data?.mealServing}</span>
             </div>
           </div>
           <div className="line"></div>
