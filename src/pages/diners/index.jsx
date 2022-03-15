@@ -1,5 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
+import { useQuery } from "react-query";
+import Stack from "@mui/material/Stack";
+import Skeleton from "@mui/material/Skeleton";
 
 import axios from "../../features/axios";
 
@@ -8,18 +11,15 @@ import Box from "../../components/diners/box";
 import Add from "../../components/diners/add";
 
 const Diners = () => {
-  const [diners, setDiners] = React.useState([]);
   const [show, setShow] = React.useState(false);
 
   const showAdd = () => {
     setShow(!show);
   };
 
-  React.useEffect(() => {
-    axios.get("/diner/diners").then((response) => {
-      setDiners(response.data.data);
-    });
-  }, []);
+  const { isLoading, data } = useQuery("diners", async () => {
+    return await axios.get("/diner/diners").then((res) => res.data);
+  });
 
   return (
     <Container>
@@ -29,22 +29,46 @@ const Diners = () => {
         <p>All</p>
         <button onClick={showAdd}>Add+</button>
       </div>
-      <div className="content">
-        {diners.length == 0 ? (
-          <p>No diners</p>
-        ) : (
-          <>
-            {diners.map((diner, index) => (
-              <Box key={index} diner={diner} />
-            ))}
-          </>
-        )}
-      </div>
+      {isLoading ? (
+        <Stack spacing={1}>
+          <Skeleton
+            variant="rectangular"
+            width={350}
+            height={320}
+            style={{ borderRadius: 5 }}
+          />
+          <Skeleton
+            variant="rectangular"
+            width={350}
+            height={320}
+            style={{ borderRadius: 5 }}
+          />
+        </Stack>
+      ) : (
+        <>
+          <div className="content">
+            {data?.data?.length == 0 ? (
+              <p>No diners</p>
+            ) : (
+              <>
+                {data?.data?.map((diner, index) => (
+                  <Box key={index} diner={diner} />
+                ))}
+              </>
+            )}
+          </div>
+        </>
+      )}
     </Container>
   );
 };
 
 const Container = styled.div`
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   .top {
     width: 90%;
     height: 40px;
@@ -53,7 +77,7 @@ const Container = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin: auto;
+    margin: 0 0 20px 0;
 
     button {
       width: 100px;
@@ -74,7 +98,6 @@ const Container = styled.div`
   .content {
     width: 100%;
     height: auto;
-    margin: 20px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
