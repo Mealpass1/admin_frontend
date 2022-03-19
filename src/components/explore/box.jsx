@@ -1,9 +1,26 @@
 import * as React from "react";
 import styled from "styled-components";
+import Details from "./details";
 
 const Box = ({ basket }) => {
+  const [details, showDetails] = React.useState(false);
+
+  const handleDetails = () => {
+    showDetails(!details);
+  };
+
   return (
     <Container>
+      {details ? (
+        <Details
+          image={basket?.image}
+          dishes={basket?.dishes}
+          close={handleDetails}
+          name={basket?.name}
+        />
+      ) : (
+        <></>
+      )}
       <div className="item">
         <div className="title">
           <p>Name</p>
@@ -22,10 +39,12 @@ const Box = ({ basket }) => {
       </div>
       <div className="item">
         <div className="title">
-          <p>Restaurant</p>
+          <p>Restaurants</p>
         </div>
         <div className="content">
-          <p>{basket?.restaurant?.businessName}</p>
+          {basket?.restaurants.map((res, index) => (
+            <p key={index}>{res?.name},</p>
+          ))}
         </div>
       </div>
       <div className="item">
@@ -48,7 +67,7 @@ const Box = ({ basket }) => {
         <div className="title">
           <p>Action</p>
         </div>
-        <div className="content">
+        <div className="content" onClick={handleDetails}>
           <button>View more</button>
         </div>
       </div>

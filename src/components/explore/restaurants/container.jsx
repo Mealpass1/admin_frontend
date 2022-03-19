@@ -23,15 +23,17 @@ const Container = ({ restaurant }) => {
         </p>
       </div>
       <div className="container">
-        {restaurant.dishes.length > 0 ? (
-          restaurant.dishes.map((product, index) => (
-            <div className="scroll" key={index}>
-              <Box product={product} restaurant={restaurant._id} />
-            </div>
-          ))
-        ) : (
-          <p className="no_dishes">No dishes yet</p>
-        )}
+        <div className="scroll">
+          {restaurant.dishes.length > 0 ? (
+            restaurant.dishes.map((product, index) => (
+              <div className="scroll" key={index}>
+                <Box product={product} restaurant={restaurant._id} />
+              </div>
+            ))
+          ) : (
+            <p className="no_dishes">No dishes yet</p>
+          )}
+        </div>
       </div>
     </Content>
   );
@@ -43,7 +45,7 @@ const Content = styled.div`
 
   .container {
     width: auto;
-    height: 200px;
+    height: 180px;
     margin: 10px 0 0 5px;
     display: flex;
     flex-direction: column;

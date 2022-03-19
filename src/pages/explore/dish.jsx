@@ -277,11 +277,10 @@ const Product = () => {
 
 const Image = styled.div`
   width: 100%;
-  height: 300px;
+  height: auto;
 
   img {
     width: 100%;
-    height: 100%;
   }
 `;
 

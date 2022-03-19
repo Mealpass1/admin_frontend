@@ -25,8 +25,8 @@ const CartItem = () => {
       .get(`admin/cart/${query.id}`, { headers: { auth: `${token}` } })
       .then((res) => {
         setTime(res.data.data.timeOfMeal);
-        setTime(res.data.data.daysInWeek);
-        setTime(res.data.data.deliveryMode);
+        setDays(res.data.data.daysInWeek);
+        setMode(res.data.data.deliveryMode);
         return res.data;
       });
   });
@@ -63,6 +63,10 @@ const CartItem = () => {
     router(-1);
   };
 
+  const goCart = () => {
+    router(-1);
+  };
+
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     setToken(token);
@@ -75,7 +79,7 @@ const CartItem = () => {
           <div className="back" onClick={goBack}>
             <IoArrowBackOutline />
           </div>
-          <div className="cart">
+          <div className="cart" onClick={goCart}>
             <FaShoppingCart />
           </div>
         </div>
@@ -106,25 +110,14 @@ const CartItem = () => {
             <div className="real">
               <div className="one">
                 <p className="bold">1. What time of meal?</p>
-                <select name="time" onChange={handleTime}>
-                  <option
-                    value="breakfast"
-                    selected={time == "breakfast" ? `${true}` : `${false}`}
-                  >
-                    breakfast
-                  </option>
-                  <option
-                    value="lunch"
-                    selected={time == "lunch" ? `${true}` : `${false}`}
-                  >
-                    Lunch
-                  </option>
-                  <option
-                    value="dinner"
-                    selected={time == "diner" ? `${true}` : `${false}`}
-                  >
-                    Dinner
-                  </option>
+                <select
+                  name="time"
+                  onChange={handleTime}
+                  defaultValue={`${time}`}
+                >
+                  <option value="breakfast">breakfast</option>
+                  <option value="lunch">Lunch</option>
+                  <option value="dinner">Dinner</option>
                 </select>
               </div>
               <div className="two">
@@ -139,17 +132,25 @@ const CartItem = () => {
                           id={one}
                           value={one}
                           onChange={onAddDay}
-                          checked={true}
+                          checked
                         />
                         <label htmlFor={one}>{one}</label>
                       </div>
                       <div className="change">
                         <select name="days" id="days">
-                          <option value="noen">change</option>
+                          <option value="none">change</option>
                           {daysOfWeek.map((day, index) => (
-                            <option value={day} key={index}>
-                              {day}
-                            </option>
+                            <React.Fragment>
+                              {day === one ? (
+                                <React.Fragment></React.Fragment>
+                              ) : (
+                                <>
+                                  <option value={day} key={index}>
+                                    {day}
+                                  </option>
+                                </>
+                              )}
+                            </React.Fragment>
                           ))}
                         </select>
                       </div>
@@ -167,7 +168,7 @@ const CartItem = () => {
                       id={one}
                       value={one}
                       onChange={handleMode}
-                      checked={mode == one ? `${true}` : `${false}`}
+                      checked={mode == one ? true : false}
                     />
                     <label htmlFor={one}>{one}</label>
                   </div>
@@ -175,7 +176,7 @@ const CartItem = () => {
               </div>
             </div>
           </div>
-          <button type="submit" className="add" onClick={updateCart}>
+          <button type="button" className="add" onClick={updateCart}>
             {loading ? (
               <img src="/loader.svg" alt="loader" />
             ) : (
@@ -200,7 +201,11 @@ const CartItem = () => {
   );
 };
 
-const Layout = styled.div``;
+const Layout = styled.div`
+  width: auto;
+  height: auto;
+  margin: 0 0 20px 0;
+`;
 
 const Top = styled.div`
   z-index: 1000;
@@ -238,12 +243,11 @@ const Top = styled.div`
 
 const Image = styled.div`
   width: 100%;
-  height: 260px;
+  height: auto;
   margin-bottom: 10px;
 
   img {
     width: 100%;
-    height: 100%;
   }
 `;
 const Container = styled.form`

@@ -16,13 +16,16 @@ const cartSlice = createSlice({
       state.dishes = [];
       state.restaurants = [];
       action.payload.forEach((item) => {
-        state.dishes.push({ name: item.name, id: item._id });
-        if (
-          !state.restaurants.includes({
-            name: item.restaurant.businessName,
-            id: item.restaurant._id,
-          })
-        ) {
+        state.dishes.push({
+          dish: item.dish,
+          restaurant: item.restaurant._id,
+          quantity: item.quantity,
+          timeOfMeal: item.timeOfMeal,
+          daysInWeek: item.daysInWeek,
+          deliveryMode: item.deliveryMode,
+          mealServing: item.mealServing,
+        });
+        if (!state.restaurants.some((res) => res.id === item.restaurant._id)) {
           state.restaurants.push({
             name: item.restaurant.businessName,
             id: item.restaurant._id,

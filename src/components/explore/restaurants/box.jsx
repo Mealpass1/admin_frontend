@@ -35,7 +35,9 @@ const Box = ({ restaurant, product }) => {
         initial="initial"
         animate="visible"
       >
-        <img src={product?.image} alt={product?.name} />
+        <div className="image">
+          <img src={product?.image} alt={product?.name} />
+        </div>
         <p className="title">{product?.name}</p>
         <p>{product?.price} RWF</p>
       </motion.div>
@@ -55,11 +57,15 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-between;
 
-    img {
+    .image {
       width: 180px;
       height: 150px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+      }
     }
 
     p {

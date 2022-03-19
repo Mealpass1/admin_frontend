@@ -36,7 +36,9 @@ const Box = ({ product }) => {
         initial="initial"
         animate="visible"
       >
-        <img src={product?.image} alt={product?.name} />
+        <div className="image">
+          <img src={product?.image} alt={product?.name} />
+        </div>
         <p className="title">{product?.name}</p>
         <p>{product?.price} RWF</p>
       </motion.div>
@@ -49,17 +51,22 @@ const Container = styled.div`
   height: auto;
 
   .box {
-    min-width: 38%;
+    min-width: 40%;
     height: 180px;
-    margin: 10px;
+    margin: 5px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
 
-    img {
+    .image {
       width: 100%;
       height: 95%;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+      }
     }
 
     .title {
