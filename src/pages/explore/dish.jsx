@@ -26,12 +26,15 @@ const Product = () => {
   const [loading, setLoading] = React.useState(false);
   const [added, setAdded] = React.useState(false);
   const [price, setPrice] = React.useState("");
+  const [toppings, setToppings] = React.useState([]);
+  const [dishToppings, setDishToppings] = React.useState([]);
 
   const { isLoading, data } = useQuery("dish", async () => {
     return await axios
       .get(`/dish/${query.product}`, { headers: { auth: `${token}` } })
       .then((res) => {
         setPrice(res.data.data.price);
+        setDishToppings(res.data.data.toppings)
         return res.data.data;
       });
   });
@@ -112,6 +115,17 @@ const Product = () => {
             });
           }
         });
+    }
+  };
+
+  const AddTopping = (position) => {
+    if (!toppings.includes(dishToppings[position])) {
+      setToppings([...toppings, dishToppings[position]]);
+    } else {
+      const newToppings = toppings.filter(
+        (topping) => topping.name !== dishToppings[position].name
+      );
+      setToppings([...newToppings]);
     }
   };
 
