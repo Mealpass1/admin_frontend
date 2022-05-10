@@ -38,17 +38,15 @@ const Container = ({ restaurant }) => {
         </p>
       </div>
       <div className="container">
-        <div className="scroll">
-          {data?.data?.length > 0 ? (
-            data?.data?.map((product, index) => (
-              <div className="scroll" key={index}>
-                <Box product={product} restaurant={restaurant._id} />
-              </div>
-            ))
-          ) : (
-            <p className="no_dishes">No dishes yet</p>
-          )}
-        </div>
+        {data?.data?.length > 0 ? (
+          data?.data?.map((product, index) => (
+            <div className="scroll" key={index}>
+              <Box product={product} restaurant={restaurant._id} />
+            </div>
+          ))
+        ) : (
+          <p className="no_dishes">No dishes yet</p>
+        )}
       </div>
     </Content>
   );
@@ -59,24 +57,6 @@ const Content = styled.div`
   width: auto;
 
   .container {
-    width: auto;
-    height: 180px;
-    margin: 10px 0 0 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    overflow-x: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-
-    .no_dishes {
-      text-align: center;
-      text-transform: capitalize;
-      font-size: small;
-    }
-
-    .scroll {
       width: auto;
       height: 200px;
       display: flex;
@@ -86,11 +66,17 @@ const Content = styled.div`
       overflow: scroll;
       -ms-overflow-style: none;
       scrollbar-width: none;
-    }
+    padding: 0 0 0 5px;
 
-    .scroll::-webkit-scrollbar {
-      display: none;
+    .no_dishes {
+      text-align: center;
+      text-transform: capitalize;
+      font-size: small;
     }
+  }
+
+  .container::-webkit-scrollbar {
+    display: none;
   }
 
   .container::-webkit-scrollbar {

@@ -29,6 +29,8 @@ const Box = (props) => {
         }
       )
       .then((rresponse) => {
+        props.reflesh();
+        console.log(rresponse);
         if (rresponse.data.status == "error") {
           toast.error("Unable to update", {
             toastId: "customId",

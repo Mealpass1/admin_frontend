@@ -27,14 +27,12 @@ const Product = () => {
   const [added, setAdded] = React.useState(false);
   const [price, setPrice] = React.useState("");
   const [toppings, setToppings] = React.useState([]);
-  const [dishToppings, setDishToppings] = React.useState([]);
 
   const { isLoading, data } = useQuery("dish", async () => {
     return await axios
       .get(`/dish/${query.product}`, { headers: { auth: `${token}` } })
       .then((res) => {
         setPrice(res.data.data.price);
-        setDishToppings(res.data.data.toppings)
         return res.data.data;
       });
   });
@@ -86,6 +84,7 @@ const Product = () => {
             owner: `${id}`,
             quantity: amount,
             timeOfMeal: data.timeOfMeal,
+            toppings: toppings,
             daysInWeek: days,
             deliveryMode: mode,
             restaurant: query.restaurant,
@@ -118,13 +117,11 @@ const Product = () => {
     }
   };
 
-  const AddTopping = (position) => {
-    if (!toppings.includes(dishToppings[position])) {
-      setToppings([...toppings, dishToppings[position]]);
+  const AddTopping = (e, price) => {
+    if (!(toppings.map(item => item.name).includes(e.target.value))) {
+      setToppings([...toppings, { name: e.target.value, price: price }]);
     } else {
-      const newToppings = toppings.filter(
-        (topping) => topping.name !== dishToppings[position].name
-      );
+      const newToppings = toppings.filter(topping => topping.name != e.target.value);
       setToppings([...newToppings]);
     }
   };
@@ -219,7 +216,8 @@ const Product = () => {
                           type="checkbox"
                           name={topping.name}
                           id={topping.name}
-                          onChange={() => AddTopping(index)}
+                          value={topping.name}
+                          onChange={(e) => AddTopping(e, topping.price)}
                         />
                         <p>
                           {topping.name.length > 7

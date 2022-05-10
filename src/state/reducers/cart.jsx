@@ -20,6 +20,7 @@ const cartSlice = createSlice({
           dish: item.dish,
           restaurant: item.restaurant._id,
           quantity: item.quantity,
+          toppings: item.toppings,
           timeOfMeal: item.timeOfMeal,
           daysInWeek: item.daysInWeek,
           deliveryMode: item.deliveryMode,

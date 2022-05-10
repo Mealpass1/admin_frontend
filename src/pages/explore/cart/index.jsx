@@ -20,6 +20,7 @@ import Add from "../../../components/explore/cart/package";
 const Cart = () => {
   const dispatch = useDispatch();
   const router = useNavigate();
+  const [reflesh, setReflesh] = useState(false);
   const [token, setToken] = useState("");
   const total = useSelector((state) => state.cart.total) || 0;
   const fee = useSelector((state) => state.cart.fee) || 0;
@@ -48,6 +49,10 @@ const Cart = () => {
     setShow(!show);
   };
 
+  const refleshCart = () => {
+    setReflesh(!reflesh);
+  };
+
   const goBack = () => {
     router(-1);
   };
@@ -56,6 +61,7 @@ const Cart = () => {
     axios
       .delete(`/admin/cart/delete/${id}`, { headers: { auth: `${token}` } })
       .then((response) => {
+        refleshCart();
         if (response.data.status == "error") {
           toast.error("Unable to delete item", {
             toastId: "customId",
@@ -103,7 +109,7 @@ const Cart = () => {
       <Content>
         <Container>
           {data?.map((item, index) => (
-            <Box item={item} key={index} delete={handleDelete} />
+            <Box item={item} key={index} delete={handleDelete} reflesh={refleshCart} />
           ))}
         </Container>
         <div className="summary">
