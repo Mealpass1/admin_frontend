@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 
+
 const Box = ({ restaurant, product }) => {
   const router = useNavigate();
 
@@ -25,6 +26,7 @@ const Box = ({ restaurant, product }) => {
       },
     },
   };
+
 
   return (
     <Container>
@@ -57,14 +59,17 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-
+    overflow: hidden;
+    
     .image {
       width: 180px;
-      height: 150px;
+      height: 130px;
       overflow: hidden;
-
+      border-radius: 10px;
+      
       img {
         width: 100%;
+        border-radius: 10px;
       }
     }
 

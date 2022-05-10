@@ -87,7 +87,7 @@ const Restaurant = () => {
           ))}
         </div>
       </Nav>
-      <Dishes active={active} dishes={data?.data?.dishes} />
+      <Dishes active={active} restaurant={data?.data?._id} />
     </Container>
   );
 };

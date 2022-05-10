@@ -52,20 +52,23 @@ const Container = styled.div`
 
   .box {
     min-width: 40%;
+    border-radius: 10px;
     height: 180px;
     margin: 5px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
-
+    
     .image {
       width: 100%;
+      border-radius: 10px;
       height: 95%;
       overflow: hidden;
-
+      
       img {
         width: 100%;
+        border-radius: 10px;
       }
     }
 

@@ -42,7 +42,7 @@ const Box = ({ basket }) => {
           <p>Restaurants</p>
         </div>
         <div className="content">
-          {basket?.restaurants.map((res, index) => (
+          {basket?.restaurants?.map((res, index) => (
             <p key={index}>{res?.name},</p>
           ))}
         </div>

@@ -1,31 +1,46 @@
 import * as React from "react";
+import { useQuery } from "react-query";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router";
 
 import { AiOutlineRight } from "react-icons/ai";
 
 import Box from "./box";
+import axios from "../../../features/axios";
 
 const Container = ({ restaurant }) => {
   const push = useNavigate();
   const { pathname } = useLocation();
+  const [token, setToken] = React.useState("");
+
+  const { data } = useQuery(`dishes of ${restaurant._id}`, async () => {
+    return await axios
+      .get(`dish/restaurant/${restaurant._id}`, { headers: { auth: `${token}` } })
+      .then((res) => res.data);
+  });
 
   const goToRestaurant = () => {
     push(`${pathname}/${restaurant._id}`);
   };
 
+
+  React.useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    setToken(token);
+  }, []);
+
   return (
     <Content>
       <div className="title">
-        <p>{restaurant.businessName}</p>
+        <p>{restaurant?.businessName}</p>
         <p onClick={goToRestaurant}>
           See All <AiOutlineRight />
         </p>
       </div>
       <div className="container">
         <div className="scroll">
-          {restaurant.dishes.length > 0 ? (
-            restaurant.dishes.map((product, index) => (
+          {data?.data?.length > 0 ? (
+            data?.data?.map((product, index) => (
               <div className="scroll" key={index}>
                 <Box product={product} restaurant={restaurant._id} />
               </div>

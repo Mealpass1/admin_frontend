@@ -1,22 +1,33 @@
 import * as React from "react";
+import { useQuery } from "react-query";
 import styled from "styled-components";
 
 import Box from "./box";
+import axios from "../../../features/axios"
 
-const Container = ({ active, dishes }) => {
-  if (dishes?.length > 0) {
+const Container = ({ active, restaurant }) => {
+
+  const { data } = useQuery(`${restaurant} dishes`, async () => {
+    return await axios
+      .get(`dish/restaurant/${restaurant}`)
+      .then((res) => res.data);
+  });
+
+  console.log(data);
+
+  if (data?.data?.length > 0) {
     return (
       <Content>
         <div className="products">
           {active == "all" ? (
             <React.Fragment>
-              {dishes?.map((product, index) => (
+              {data?.data?.map((product, index) => (
                 <Box product={product} key={index} />
               ))}
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {dishes?.map((product, index) => (
+              {data?.data?.map((product, index) => (
                 <React.Fragment key={index}>
                   {product.category == active ? (
                     <Box product={product} key={index} />

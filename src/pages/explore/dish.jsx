@@ -277,6 +277,8 @@ const Product = () => {
 
 const Image = styled.div`
   width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
   height: auto;
 
   img {
