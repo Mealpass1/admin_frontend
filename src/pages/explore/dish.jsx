@@ -10,12 +10,11 @@ import { useNavigate, useParams } from "react-router";
 //icons
 import { FaShoppingCart } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
-import { BiMinus } from "react-icons/bi";
+import { BiMinus, BiArrowBack } from "react-icons/bi";
 import { MdOutlineDownloadDone } from "react-icons/md";
 
 //features
 import axios from "../../features/axios";
-import { IoArrowBackOutline } from "react-icons/io5";
 
 const Product = () => {
   const query = useParams();
@@ -33,7 +32,7 @@ const Product = () => {
       .get(`/dish/${query.product}`, { headers: { auth: `${token}` } })
       .then((res) => {
         setPrice(res.data.data.price);
-        return res.data;
+        return res.data.data;
       });
   });
 
@@ -159,47 +158,73 @@ const Product = () => {
   }, []);
 
   return (
-    <Layout>
-      <Top>
-        <div className="icons">
-          <div className="back" onClick={goBack}>
-            <IoArrowBackOutline />
-          </div>
-          <div className="cart">
-            <CartIcon onClick={goCart}>
-              <FaShoppingCart />
-            </CartIcon>
-          </div>
-        </div>
+    <div>
+      <Top onClick={goBack}>
+        <BiArrowBack />
       </Top>
       <Image>
-        <img src={data?.data?.image} alt={data?.data?.name} />
+        <center>
+          <img src={data?.image} alt={data?.name} />
+        </center>
       </Image>
       <Content>
         <div className="title">
-          <p>{data?.data?.name}</p>
-          <p>{data?.data?.price} RWF</p>
+          <p>{data?.name}</p>
+          <p>{price} RWF</p>
         </div>
         <div className="announcement">
-          <p>{data?.data?.discount}%Off</p>
+          <p>{data?.discount}%</p>
         </div>
         <div className="description">
           <p className="bolder">Decription</p>
-          <p className="description_text">{data?.data?.description}</p>
+          <p className="description_text">{data?.description}</p>
           <div className="amount">
-            <div className="plus" onClick={increaseAmount}>
-              <AiOutlinePlus />
-            </div>
-            <p>{amount}</p>
-            <div className="minus" onClick={decreaseAmount}>
-              <BiMinus />
+            <p>No. of Ppl/Qty</p>
+            <div>
+              <div className="plus" onClick={increaseAmount}>
+                <AiOutlinePlus />
+              </div>
+              <p>{amount}</p>
+              <div className="minus" onClick={decreaseAmount}>
+                <BiMinus />
+              </div>
             </div>
           </div>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="line"></div>
+          <div className="toppings">
+            <p className="bolder">Additional Top-up</p>
+            {data?.toppings?.length > 0 ? (
+              <>
+                <div className="real">
+                  {data?.toppings?.map((topping, index) => (
+                    <div className="topping" key={index}>
+                      <div>
+                        <input
+                          type="checkbox"
+                          name={topping.name}
+                          id={topping.name}
+                          onChange={() => AddTopping(index)}
+                        />
+                        <p>
+                          {topping.name.length > 7
+                            ? `${topping.name.substr(0, 7)}...`
+                            : topping.name}
+                        </p>
+                      </div>
+                      <p>{topping.price} RWF</p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <p>No additional top-ups</p>
+            )}
+          </div>
+          <div className="line"></div>
           <div className="info">
-            <p className="bolder">More information</p>
+            <p className="bolder">Booking information</p>
             <div className="real">
               <div className="one">
                 <p className="bold">1. What time of meal?</p>
@@ -227,7 +252,9 @@ const Product = () => {
                         value={day}
                         onChange={onAddDay}
                       />
-                      <label htmlFor={day}>{day}</label>
+                      <label htmlFor={day}>
+                        {day.length > 8 ? `${day.substr(0, 6)}...` : day}
+                      </label>
                     </div>
                   ))}
                 </div>
@@ -241,21 +268,36 @@ const Product = () => {
                       name="mode"
                       id={mode.mode}
                       value={mode.mode}
-                      onChange={handleMode}
+                      onChange={(e) => handleMode(e)}
                       ref={modeRef}
                     />
                     <label htmlFor={mode.mode}>{mode.mode}</label>
                   </div>
                 ))}
               </div>
+              {/* <div className="four">
+                <p className="bold">4. How many repeat in a month?</p>
+                <select
+                  name="time"
+                  {...register("repeatsInMonth", {
+                    required: true,
+                  })}
+                >
+                  <option value="none">None</option>
+                  <option value="1">Just this week</option>
+                  <option value="2">Over the next 2 weeks</option>
+                  <option value="3">Over the next 3 weeks</option>
+                  <option value="4">Over the next 4 weeks</option>
+                </select>
+              </div> */}
             </div>
           </div>
           <button type="submit" className="add">
             {loading ? (
               <Image src="/loader.svg" alt="loader" width="50" height="50" />
             ) : (
-              <div className={added == true ? `added` : `adding`}>
-                {added == true ? (
+              <div className={added === true ? `added` : `adding`}>
+                {added === true ? (
                   <>
                     <MdOutlineDownloadDone />
                     <p>Added to cart</p>
@@ -271,15 +313,25 @@ const Product = () => {
           </button>
         </form>
       </Content>
-    </Layout>
+    </div>
   );
 };
 
+const Top = styled.div`
+  width: 100%;
+  height: 40px;
+  padding: 0 0 0 20px;
+  display: flex;
+  align-items: center;
+  font-size: 1.5em;
+  justify-content: flex-start;
+`
+
 const Image = styled.div`
   width: 100%;
-  border-radius: 20px;
-  overflow: hidden;
+  border-radius: 15px;
   height: auto;
+  overflow: hidden;
 
   img {
     width: 100%;
@@ -340,15 +392,31 @@ const Content = styled.div`
     align-items: flex-start;
     justify-content: space-between;
 
+    > p {
+      width: 70%;
+    }
+
     .amount {
-      width: 80px;
-      height: 25px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-around;
+      width: 100px;
+      height: 50px;
       position: absolute;
       right: 10px;
+      text-align: center;
+
+      p {
+        line-height: 20px;
+      }
+
+      > div {
+        width: 80px;
+        height: 25px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        position: absolute;
+        right: 10px;
+      }
 
       .plus,
       .minus {
@@ -365,7 +433,7 @@ const Content = styled.div`
   }
 
   .line {
-    width: 90%;
+    width: 95%;
     height: 1px;
     margin: 10px 0;
     background: var(--bright);
@@ -379,6 +447,39 @@ const Content = styled.div`
     align-items: center;
   }
 
+  .toppings {
+    width: 100%;
+    height: auto;
+    padding: 0 10px 10px 10px;
+
+    .real {
+      width: 100%;
+      height: auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 0 10px;
+    }
+
+    .topping {
+      width: 90%;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      div {
+        display: flex;
+        width: 60%;
+        height: 100%;
+        align-items: center;
+
+        p {
+          margin: 0 5px;
+        }
+      }
+    }
+  }
+
   .info {
     width: 100%;
     height: auto;
@@ -390,7 +491,22 @@ const Content = styled.div`
       padding: 10px;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+      grid-template-areas:
+        "one two"
+        "three three";
       grid-gap: 20px;
+
+      .one {
+        grid-area: one;
+      }
+
+      .two {
+        grid-area: two;
+      }
+
+      .three {
+        grid-area: three;
+      }
 
       select {
         width: 70px;
@@ -423,7 +539,7 @@ const Content = styled.div`
   .add {
     width: 80vw;
     height: 35px;
-    margin: 10px 0;
+    margin: 0 0 20px 0;
     display: flex;
     font-weight: bold;
     flex-direction: row;
@@ -435,7 +551,6 @@ const Content = styled.div`
     .adding {
       width: 80vw;
       height: 35px;
-      margin: 10px 0;
       display: flex;
       font-weight: bold;
       flex-direction: row;
@@ -461,51 +576,6 @@ const Content = styled.div`
       }
     }
   }
-`;
-
-const Layout = styled.div`
-  width: 100vw;
-  margin: 0 0 5em 0;
-  height: auto;
-  overflow: hidden;
-`;
-
-const Top = styled.div`
-  z-index: 1000;
-  top: 0;
-  width: 100%;
-  height: 40px;
-
-  .icons {
-    width: 90%;
-    height: 40px;
-    margin: auto;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 1;
-
-    .back {
-      font-size: 1.8em;
-      color: var(--black);
-    }
-
-    .cart {
-      width: 20px;
-    }
-  }
-`;
-
-const CartIcon = styled.div`
-  width: 100%;
-  height: 40%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  position: relative;
-  font-size: 1.5em;
 `;
 
 export default Product;
