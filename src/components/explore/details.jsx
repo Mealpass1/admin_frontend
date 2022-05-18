@@ -1,9 +1,11 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
+import axios from "../../features/axios";
 
-const Details = ({ name, image, dishes, close }) => {
+const Details = ({ name, image, close, id }) => {
   const [loading, setLoading] = React.useState(false);
+  const [dishes, setDishes] = React.useState([]);
 
   const variants = {
     initial: {
@@ -13,6 +15,12 @@ const Details = ({ name, image, dishes, close }) => {
       scale: 1,
     },
   };
+
+  React.useEffect(() => {
+    axios.get(`/packageItems/items/${id}`).then((response) => {
+      setDishes(response.data.data);
+    });
+  }, []);
 
   return (
     <Container>

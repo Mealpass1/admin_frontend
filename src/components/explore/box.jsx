@@ -14,9 +14,9 @@ const Box = ({ basket }) => {
       {details ? (
         <Details
           image={basket?.image}
-          dishes={basket?.dishes}
           close={handleDetails}
           name={basket?.name}
+          id={basket?._id}
         />
       ) : (
         <></>

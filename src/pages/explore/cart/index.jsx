@@ -111,7 +111,12 @@ const Cart = () => {
       <Content>
         <Container>
           {data?.map((item, index) => (
-            <Box item={item} key={index} delete={handleDelete} reflesh={refleshCart} />
+            <Box
+              item={item}
+              key={index}
+              delete={handleDelete}
+              reflesh={refleshCart}
+            />
           ))}
         </Container>
         <div className="summary">
