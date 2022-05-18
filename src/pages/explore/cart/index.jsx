@@ -78,6 +78,8 @@ const Cart = () => {
       });
   };
 
+  console.log(data);
+
   return (
     <Layout>
       {show == true ? <Add close={openShow} /> : <></>}

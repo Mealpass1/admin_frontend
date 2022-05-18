@@ -25,6 +25,7 @@ const cartSlice = createSlice({
           daysInWeek: item.daysInWeek,
           deliveryMode: item.deliveryMode,
           mealServing: item.mealServing,
+          subTotal: item.subTotal,
         });
         if (!state.restaurants.some((res) => res.id === item.restaurant._id)) {
           state.restaurants.push({
